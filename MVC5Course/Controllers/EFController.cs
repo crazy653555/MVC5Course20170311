@@ -23,11 +23,11 @@ namespace MVC5Course.Controllers
                 Active = true
             };
 
-            db.Product.Add(product);
+            //db.Product.Add(product);
             
             try
             {
-                db.SaveChanges();
+                //db.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
@@ -45,15 +45,29 @@ namespace MVC5Course.Controllers
 
             var pkey = product.ProductId;
             
-            var data = db.Product.OrderByDescending(item => item.ProductId).Take(15);            
-             
+            var data = db.Product.OrderByDescending(item => item.ProductId).Take(5);
+
+            foreach (var item in data)
+            {
+                item.Price = item.Price + 1;
+            }
+
+            db.SaveChanges();
             return View(data);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Details(int id)
         {
             var data = db.Product.FirstOrDefault(p => p.ProductId == id);
             return View(data);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var product = db.Product.Find(id);
+            db.Product.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
