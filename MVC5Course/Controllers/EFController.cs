@@ -15,19 +15,34 @@ namespace MVC5Course.Controllers
         public ActionResult Index()
         {
 
-            var product = new Product
-            {
-                ProductName = "BMW",
-                Price = 2,
-                Stock = 1,
-                Active = true
-            };
+            //var product = new Product
+            //{
+            //    ProductName = "BMW",
+            //    Price = 2,
+            //    Stock = 1,
+            //    Active = true
+            //};
 
             //db.Product.Add(product);
-            
+            //var pkey = product.ProductId;
+
+            var data = db.Product.OrderByDescending(item => item.ProductId).Take(5);
+
+            foreach (var item in data)
+            {
+                item.Price = item.Price + 1;
+            }
+
+            SaveChanges();
+                        
+            return View(data);
+        }
+
+        private void SaveChanges()
+        {
             try
             {
-                //db.SaveChanges();
+                db.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
@@ -42,18 +57,6 @@ namespace MVC5Course.Controllers
                 }
                 throw;
             }
-
-            var pkey = product.ProductId;
-            
-            var data = db.Product.OrderByDescending(item => item.ProductId).Take(5);
-
-            foreach (var item in data)
-            {
-                item.Price = item.Price + 1;
-            }
-
-            db.SaveChanges();
-            return View(data);
         }
 
         public ActionResult Details(int id)
@@ -65,8 +68,11 @@ namespace MVC5Course.Controllers
         public ActionResult Delete(int id)
         {
             var product = db.Product.Find(id);
+            db.OrderLine.RemoveRange(product.OrderLine);
             db.Product.Remove(product);
-            db.SaveChanges();
+            SaveChanges();
+            //db.Product.Remove(product);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
