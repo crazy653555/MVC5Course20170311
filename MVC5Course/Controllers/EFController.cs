@@ -12,7 +12,7 @@ namespace MVC5Course.Controllers
     {
         // GET: EF
         FabricsEntities db = new FabricsEntities();
-        public ActionResult Index()
+        public ActionResult Index(bool? IsActive, string keyword)
         {
 
             //var product = new Product
@@ -26,14 +26,27 @@ namespace MVC5Course.Controllers
             //db.Product.Add(product);
             //var pkey = product.ProductId;
 
-            var data = db.Product.OrderByDescending(item => item.ProductId).Take(5);
+            //var data = db.Product.OrderByDescending(item => item.ProductId);
 
-            foreach (var item in data)
+            //foreach (var item in data)
+            //{
+            //    item.Price = item.Price + 1;
+            //}
+
+            //SaveChanges();
+
+            var data = db.Product.OrderByDescending(p => p.ProductId).AsQueryable();
+
+            if (IsActive.HasValue)
             {
-                item.Price = item.Price + 1;
+                data = data.Where(p => p.Active.HasValue ? p.Active.Value == IsActive : false);
             }
 
-            SaveChanges();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                data = data.Where(p => p.ProductName.Contains(keyword));
+            }
+
                         
             return View(data);
         }
