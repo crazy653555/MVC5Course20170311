@@ -36,6 +36,9 @@ namespace MVC5Course.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.OrderLines = product.OrderLine.ToList();
+
             return View(product);
         }
 
@@ -89,6 +92,7 @@ namespace MVC5Course.Controllers
                 var db = (FabricsEntities)repo.UnitOfWork.Context;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["ProductEditDoneMsg"] = "商品編輯成功";
                 return RedirectToAction("Index");
             }
             return View(product);

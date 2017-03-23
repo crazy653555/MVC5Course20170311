@@ -38,5 +38,10 @@ namespace MVC5Course.Controllers
             var data = db.Product.Take(3);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult RedirectTest()
+        {
+            return RedirectToAction("Details", "Products", new { id = 2 });
+        }
     }
 }
