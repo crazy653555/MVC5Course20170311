@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,14 @@ namespace MVC5Course.Controllers
         public ActionResult FileTest()
         {
             return File(Server.MapPath("~/Content/alphago-logo.png"),"image/png");
+        }
+
+        public ActionResult JsonTest()
+        {
+            var db = new FabricsEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            var data = db.Product.Take(3);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }
