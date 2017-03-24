@@ -23,17 +23,24 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(IList<Product> data)
+        public ActionResult Index(IList<Products批次更新VIewModel> data)
         {
-            foreach (var item in data)
+            if (ModelState.IsValid)
             {
-                var product = repo.Find(item.ProductId);
-                product.Price = item.Price;
-                product.Stock = item.Stock;
+
+                foreach (var item in data)
+                {
+                    var product = repo.Find(item.ProductId);
+                    product.Price = item.Price;
+                    product.Stock = item.Stock;
+                }
+
+                repo.UnitOfWork.Commit();
+                TempData["UpdateSuccess"] = "資料更新完成";
+                return RedirectToAction("Index");
             }
 
-            repo.UnitOfWork.Commit();
-            return RedirectToAction("Index");
+            return View(repo.All().Take(5));
         }
 
         // GET: Products/Details/5
@@ -72,7 +79,7 @@ namespace MVC5Course.Controllers
             if (ModelState.IsValid)
             {
                 repo.Add(product);
-                repo.UnitOfWork.Commit();
+                repo.UnitOfWork.Commit();             
                 return RedirectToAction("Index");
             }
 
@@ -99,16 +106,17 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock,IsDeleted")] Product product)
+        public ActionResult Edit(int id,FormCollection form)
         {
-            if (ModelState.IsValid)
+            Product product = repo.Find(id);
+            //if (TryUpdateModel<Product>(product, new string[] { "ProductId","ProductName","Price","Active","Stock"}))           
+            if (TryUpdateModel<IProduct>(product))
             {
-                var db = (FabricsEntities)repo.UnitOfWork.Context;
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.UnitOfWork.Commit();
                 TempData["ProductEditDoneMsg"] = "商品編輯成功";
                 return RedirectToAction("Index");
             }
+                            
             return View(product);
         }
 

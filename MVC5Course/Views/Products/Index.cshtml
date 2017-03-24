@@ -11,6 +11,10 @@
     {
         <h3>@TempData["ProductEditDoneMsg"]</h3>
     }
+    @if (!string.IsNullOrEmpty(Convert.ToString(TempData["UpdateSuccess"])))
+    {
+        <h3 class="text-danger">@TempData["UpdateSuccess"]</h3>
+    }
 </p>
 @using (Html.BeginForm())
 {
@@ -44,12 +48,14 @@
                 </td>
                 <td>
                     @Html.EditorFor(modelItem => data[i].Price)
+                    @Html.ValidationMessageFor(modelItem =>data[i].Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => data[i].Active)
                 </td>
                 <td>
                     @Html.EditorFor(modelItem => data[i].Stock)
+                    @Html.ValidationMessageFor(modelItem => data[i].Stock)
                 </td>
 
                 <td>

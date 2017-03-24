@@ -5,7 +5,7 @@ namespace MVC5Course.Models
     using System.ComponentModel.DataAnnotations;
     
     [MetadataType(typeof(ProductMetaData))]
-    public partial class Product
+    public partial class Product:IProduct
     {
     }
     
@@ -18,6 +18,7 @@ namespace MVC5Course.Models
         [Required]
         //[此欄位必須至少出現一個空白字元(ErrorMessage = "此欄位必須至少出現一個空白字元")]
         public string ProductName { get; set; }
+        [Range(1,999)]
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<decimal> Stock { get; set; }
