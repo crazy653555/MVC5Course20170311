@@ -187,6 +187,7 @@
     <Compile Include="Controllers\IUserInputModel.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MBController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="ActionFilters\紀錄Action的執行時間Attribute.cs" />
@@ -387,6 +388,7 @@
     <Content Include="Views\EF\QueryPlan.cshtml" />
     <Content Include="Views\AR\Index.cshtml" />
     <Content Include="Views\MB\Index.cshtml" />
+    <Content Include="Views\Member\Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
