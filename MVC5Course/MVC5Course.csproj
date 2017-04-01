@@ -391,6 +391,7 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\ErrorArgument.cshtml" />
+    <Content Include="Views\Home\RazorTest.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
