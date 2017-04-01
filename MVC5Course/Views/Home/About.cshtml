@@ -6,7 +6,9 @@
 
 <p>Use this area to provide additional information.</p>
 
-
+@Html.ActionLink(" ", "Index", "null",new { @class="btn btn-danger",data_nameof="eason"})
+<a href="@Url.Action("Index")" class="btn btn-danger" data-name="eason"></a>
+ 
 @section scripts{
         <script>
             console.log('ok')
