@@ -57,7 +57,7 @@
 
 <h2>OrderLines</h2>
 
-<table class="table">
+@*<table class="table">
     <tr>
         <td>ProductId</td>
         <td>ProductName</td>
@@ -75,8 +75,11 @@
         <td>@item.LineTotal</td>
     </tr>
     }
-</table>
+</table>*@
 
+@Html.Action("Index", "OrderLines",new { ProductId = Model.ProductId})
+
+@Html.Partial("../OrderLines/Index",Model.OrderLine)
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
     @Html.ActionLink("Back to List", "Index")
