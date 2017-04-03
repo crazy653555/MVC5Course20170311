@@ -7,6 +7,9 @@
 <h2>Index</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
+   
+    @Html.DropDownList("isActive","--是否有效--")
+     
     @if (!string.IsNullOrEmpty(Convert.ToString(TempData["ProductEditDoneMsg"])))
     {
         <h3>@TempData["ProductEditDoneMsg"]</h3>
@@ -87,7 +90,10 @@
 {
     if (ViewBag.type == "Detail")
     {
-        @Html.Partial("Details", ViewData["SelectProductItem"])
+        if (ViewData["SelectProductItem"] != null)
+        {
+            @Html.Partial("Details", ViewData["SelectProductItem"])
+        }
     }
     else
     {
