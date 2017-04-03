@@ -15,7 +15,7 @@ namespace MVC5Course.Controllers
         
         
         // GET: Products
-        public ActionResult Index(int? ProductId,string type,bool? isActive)
+        public ActionResult Index(int? ProductId,string type,bool? isActive,string keyword)
         {
             var data = repo.All(true).Take(5);
             //var repoOL = RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
@@ -36,6 +36,12 @@ namespace MVC5Course.Controllers
             {
                 ViewBag.SelectedProductId = ProductId;
             }
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                data = data.Where(p => p.ProductName.Contains(keyword));
+            }
+
             return View(data);
         }
 

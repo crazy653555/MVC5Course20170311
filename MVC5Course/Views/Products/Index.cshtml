@@ -5,20 +5,24 @@
 }
 
 <h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-   
-    @Html.DropDownList("isActive","--是否有效--")
-     
-    @if (!string.IsNullOrEmpty(Convert.ToString(TempData["ProductEditDoneMsg"])))
-    {
-        <h3>@TempData["ProductEditDoneMsg"]</h3>
-    }
-    @if (!string.IsNullOrEmpty(Convert.ToString(TempData["UpdateSuccess"])))
-    {
-        <h3 class="text-danger">@TempData["UpdateSuccess"]</h3>
-    }
-</p>
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+
+        @Html.DropDownList("isActive", null, "--是否有效--", new { onchange = "this.form.submit();" })
+        @Html.TextBox("keyword", null,new { onchange="this.form.submit();"})
+        @if (!string.IsNullOrEmpty(Convert.ToString(TempData["ProductEditDoneMsg"])))
+        {
+            <h3>@TempData["ProductEditDoneMsg"]</h3>
+        }
+        @if (!string.IsNullOrEmpty(Convert.ToString(TempData["UpdateSuccess"])))
+        {
+            <h3 class="text-danger">@TempData["UpdateSuccess"]</h3>
+        }
+    </p>
+}
 @using (Html.BeginForm())
 {
     <table class="table">
