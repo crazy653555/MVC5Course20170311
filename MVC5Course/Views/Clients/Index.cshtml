@@ -20,6 +20,13 @@
     var data = Model as IPagedList;
 }
 
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert('@Ajax.JavaScriptStringEncode(Convert.ToString(TempData["Msg"]))');
+    </script>
+}
+
 @section Scripts{
     <script>
         function ajaxSuccess() {
@@ -141,10 +148,22 @@
             @Html.DisplayFor(modelItem => item.Occupation.OccupationName)
         </td>*@
         <td>
-            @Ajax.ActionLink("Edit", "Edit", new { id=item.ClientId },new AjaxOptions { UpdateTargetId="detail" }) |
-            @Ajax.ActionLink("Details", "Details", new { id=item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" }) |
-            @Ajax.ActionLink("Delete", "Delete", new { id=item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" })
+            @Ajax.ActionLink("Edit", "Edit", new
+        {
+            id = item.ClientId,
+            pageNo = (int)ViewBag.pageNo
+        },
+                CommonAjaxOptions) |
+            @Ajax.ActionLink("Edit",
+           "Edit",
+           new { id = item.ClientId },
+           CommonAjaxOptions) |
+
+            @Ajax.ActionLink("Details", "Details", new { id = item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" }) |
+            @Ajax.ActionLink("Delete", "Delete", new { id = item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" })
         </td>
+
+
     </tr>
 }
 

@@ -22,6 +22,7 @@ namespace MVC5Course.Controllers
 
             var data = client.ToPagedList(pageNo, 10);
 
+            ViewBag.pageNo = pageNo;
             return View(data);
         }
 
@@ -92,6 +93,8 @@ namespace MVC5Course.Controllers
             {
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["Msg"] = "更新資料成功\r\n您剛才更新的是編號 " + client.ClientId + " 的資料";
 
                 return View("Index", db.Client.Include(c => c.Occupation).Take(5).ToList());
             }
