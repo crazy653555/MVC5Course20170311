@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<MVC5Course.Models.Client>
 
+@using PagedList
+@using PagedList.Mvc
+
 @{
     if (IsAjax)
     {
@@ -13,6 +16,8 @@
         LoadingElementId = "loading",
         OnSuccess = "ajaxSuccess"
     };
+
+    var data = Model as IPagedList;
 }
 
 @section Scripts{
@@ -30,6 +35,8 @@
 </p>
 
 <img id="loading" style="display:none" src="~/Content/ajax-loader.gif" />
+
+@Html.PagedListPager(data,p => Url.Action("Index",new { pageNo = p }))
 <table class="table">
     <tr>
         <th>
@@ -142,5 +149,7 @@
 }
 
 </table>
+
+@Html.PagedListPager(data, p => Url.Action("Index", new { pageNo = p }))
 
 <div id="detail"></div>
