@@ -6,13 +6,30 @@
         Layout = null;
     }
     ViewBag.Title = "Index";
+
+    var CommonAjaxOptions = new AjaxOptions()
+    {
+        UpdateTargetId = "detail",
+        LoadingElementId = "loading",
+        OnSuccess = "ajaxSuccess"
+    };
 }
+
+@section Scripts{
+    <script>
+        function ajaxSuccess() {
+            console.log('success');
+        }
+    </script>
+    }
 
 <h2>Index</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", new AjaxOptions { UpdateTargetId = "detail" })
+    @Ajax.ActionLink("Create New", "Create", CommonAjaxOptions)
 </p>
+
+<img id="loading" style="display:none" src="~/Content/ajax-loader.gif" />
 <table class="table">
     <tr>
         <th>
