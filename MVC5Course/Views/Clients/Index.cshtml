@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Create New", "Create", new AjaxOptions { UpdateTargetId = "detail" })
 </p>
 <table class="table">
     <tr>
@@ -41,7 +41,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Street2)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.City)
         </th>
         <th>
@@ -59,7 +59,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Occupation.OccupationName)
         </th>
-        <th></th>
+        <th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -94,7 +94,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Street2)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
@@ -111,13 +111,15 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Occupation.OccupationName)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+            @Ajax.ActionLink("Edit", "Edit", new { id=item.ClientId },new AjaxOptions { UpdateTargetId="detail" }) |
+            @Ajax.ActionLink("Details", "Details", new { id=item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" }) |
+            @Ajax.ActionLink("Delete", "Delete", new { id=item.ClientId }, new AjaxOptions { UpdateTargetId = "detail" })
         </td>
     </tr>
 }
 
 </table>
+
+<div id="detail"></div>
