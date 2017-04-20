@@ -36,7 +36,7 @@ namespace MVC5Course.Controllers
             Client client = db.Client.Find(id);
             if (client == null)
             {
-                return HttpNotFound();
+                return HttpNotFound();                
             }
             return View(client);
         }
